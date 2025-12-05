@@ -1,0 +1,20 @@
+name: Semgrep
+# условия выполнения action - при внесении изменений в ветки main и test
+on:
+  push:
+    branches:
+      - main
+      - test
+# содержание action - создание и выполнение контейнера с анализатором 
+semgrep
+jobs:
+  semgrep:
+    name: semgrep/ci
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep ci
+        env:
+          SEMGREP_APP_TOKEN: adc3acee45201d4c62f30fea76c228d6ab9cc0f77d9bd798efc12f663d177080
